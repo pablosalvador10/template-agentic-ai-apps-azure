@@ -1,0 +1,18 @@
+[project]
+name = "template-agentic-ai-apps-azure-py"
+version = "0.1.0"
+description = "Python workspace for the agentic Azure app template"
+requires-python = ">=3.11"
+
+dependencies = []
+
+[tool.uv.workspace]
+members = [
+  "apps/app-template",
+  "libs/foundrykit",
+  "libs/agentkit",
+  "mcp/mcp-server-template",
+]
+
+[tool.uv]
+package = false
