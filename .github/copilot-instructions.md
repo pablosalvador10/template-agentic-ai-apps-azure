@@ -16,8 +16,9 @@ These define WHAT the system is and HOW to implement safely.
 | Path | Purpose |
 |------|---------|
 | `py/libs/foundrykit` | Azure AI Foundry client, AgentManager, ToolRegistry |
-| `py/libs/agentkit` | YAML-driven agent spec loader |
-| `py/apps/app-template` | FastAPI backend (chat, SSE streaming, storage) |
+| `py/libs/agentkit` | YAML-driven agent spec loader || `py/libs/evalkit` | Domain-agnostic evaluation framework (evaluators, rubrics, coaching) |
+| `py/libs/synthetickit` | Synthetic data generation pipeline (scenarios, quality gates) |
+| `py/libs/testkit` | Shared test fakes (FakeCosmosContainer, FakeLLMClient, FakeStorage) || `py/apps/app-template` | FastAPI backend (chat, SSE streaming, storage) |
 | `py/mcp/mcp-server-template` | MCP HTTP server skeleton |
 | `ts/apps/ui-copilot-template` | React chat UI with SSE parsing |
 | `infra/` | Terraform modules + azd deployment |
@@ -129,6 +130,10 @@ These define WHAT the system is and HOW to implement safely.
 - **FoundryClient**: Singleton via `get_foundry_client()` — never create multiple instances.
 - **Storage protocol**: All backends implement `add_message()` / `list_messages()`. Add new ones via `get_storage()` factory.
 - **Pydantic models**: All request/response types typed via Pydantic `BaseModel`.
+- **EvalRubric**: Run evaluators via `EvalRubric.evaluate(ctx)` — weighted scoring with quality gates.
+- **Evaluator protocol**: Custom evaluators implement `dimension` + `evaluate()`. Seven built-in evaluators included.
+- **SyntheticPipeline**: Generate test data via `run_pipeline(config)` — 3-stage: prepare → synthesize → annotate.
+- **testkit fakes**: Use `FakeCosmosContainer`, `FakeLLMClient`, `FakeStorage` from testkit in all tests.
 
 ## Context Loading Architecture
 
@@ -148,6 +153,9 @@ When a task matches one of these patterns, the corresponding skill provides step
 - Adding storage backend → `storage-backend`
 - Creating an agent → `agent-authoring`
 - Adding chat UI feature → `add-chat-feature`
+- Setting up evaluations → `evaluation-pipeline`
+- Generating synthetic test data → `synthetic-data-pipeline`
+- Setting up test infrastructure → `test-infrastructure`
 - Deploying to Azure → `azure-deployment`
 - Adding Azure resource → `add-azure-resource`
 - Running locally with Docker → `docker-local-dev`

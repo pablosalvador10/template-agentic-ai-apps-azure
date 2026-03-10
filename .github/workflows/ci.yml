@@ -36,7 +36,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - name: Install backend dependencies
         run: |
-          uv pip install --system -e py/libs/foundrykit -e py/libs/agentkit -e py/apps/app-template[dev]
+          uv pip install --system -e py/libs/foundrykit -e py/libs/agentkit -e py/libs/testkit -e py/libs/evalkit -e py/libs/synthetickit -e py/apps/app-template[dev]
       - name: Lint Python
         run: ruff check py
       - name: Test backend app
@@ -44,7 +44,7 @@ jobs:
         run: pytest -q
       - name: Test Python libs
         run: |
-          pytest -q py/libs/foundrykit/tests py/libs/agentkit/tests
+          pytest -q py/libs/foundrykit/tests py/libs/agentkit/tests py/libs/testkit/tests py/libs/evalkit/tests py/libs/synthetickit/tests
 
   frontend:
     runs-on: ubuntu-latest

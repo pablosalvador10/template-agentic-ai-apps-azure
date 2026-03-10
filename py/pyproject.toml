@@ -11,6 +11,9 @@ members = [
   "apps/app-template",
   "libs/foundrykit",
   "libs/agentkit",
+  "libs/evalkit",
+  "libs/synthetickit",
+  "libs/testkit",
   "mcp/mcp-server-template",
 ]
 
