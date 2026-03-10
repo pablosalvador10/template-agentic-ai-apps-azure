@@ -165,6 +165,14 @@ When a task matches one of these patterns, the corresponding skill provides step
 - Extending the template → `extend-template`
 - Debugging errors → `troubleshooting`
 - Setting up tracing/observability → `observability-setup`
+- Using/extending foundrykit → `foundrykit-library`
+- Using/extending agentkit → `agentkit-library`
+- Using/extending evalkit → `evalkit-library`
+- Using/extending synthetickit → `synthetickit-library`
+- Using/extending testkit → `testkit-library`
+- Validating the full stack → `e2e-validation`
+- Load testing endpoints → `load-testing`
+- Smoke testing after deployment → `smoke-testing`
 
 ## Scoped Guidance
 

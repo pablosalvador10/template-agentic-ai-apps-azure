@@ -11,8 +11,12 @@ Reusable full-stack foundation for building autonomous agent applications with:
 ## Monorepo Layout
 
 - `py/apps/app-template`: Backend sample app (domain-neutral)
+- `py/apps/sample-eval-e2e`: End-to-end sample (synthetickit + evalkit)
 - `py/libs/foundrykit`: Foundry client/agent/tool abstractions
 - `py/libs/agentkit`: YAML-driven agent spec loader
+- `py/libs/evalkit`: Domain-agnostic evaluation framework
+- `py/libs/synthetickit`: Synthetic data generation pipeline
+- `py/libs/testkit`: Shared test fakes and utilities
 - `py/mcp/mcp-server-template`: Generic MCP server starter
 - `ts/apps/ui-copilot-template`: Streaming chat frontend template
 - `infra/`: Terraform modules and environment scaffold
@@ -23,9 +27,9 @@ Reusable full-stack foundation for building autonomous agent applications with:
 ### 1. Backend
 
 ```bash
-cd py/apps/app-template
-uv pip install -e .[dev]
-uv run uvicorn main:app --reload --port 8001
+cd py
+uv sync --all-packages
+uv run uvicorn --app-dir apps/app-template main:app --reload --port 8001
 ```
 
 ### 2. Frontend
@@ -36,9 +40,16 @@ pnpm install
 pnpm --filter ui-copilot-template dev
 ```
 
-### 3. Local End-to-End (Docker)
+### 3. Run Tests
 
 ```bash
+cd py && uv run pytest libs/ apps/ -v
+```
+
+### 4. Local End-to-End (Docker)
+
+```bash
+cp .env.example .env
 docker compose up --build
 ```
 
